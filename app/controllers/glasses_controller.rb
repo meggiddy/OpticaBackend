@@ -15,7 +15,7 @@ class GlassesController < ApplicationController
     end
 
     def get_by_color
-        glasses = Glass.where("file_url LIKE ?", "%#{params[:color]}%")
+        glasses = Glass.where("colors LIKE ?", "%#{params[:color]}%")
         render json: glasses
     end
 end
