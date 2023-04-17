@@ -1,10 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 
 Glass.create([
     {
@@ -577,23 +572,4 @@ Glass.create([
         has_colors:  true,
         colors: "C01|C05"
     },
-<<<<<<< HEAD
 ])
-=======
-])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 25ceecc (glass endpoints)
