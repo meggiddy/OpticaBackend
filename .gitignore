@@ -29,8 +29,11 @@
 /public/assets
 .byebug_history
 
+/public/brands
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
 # vendor
 /vendor/bundle
+

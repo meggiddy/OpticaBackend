@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/filter_by_brand/:brand', to: "glasses#get_by_brand"
   get '/filter_by_color/:color', to: "glasses#get_by_color"
+  post '/virtualsearch', to: "glasses#virtual_search"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
