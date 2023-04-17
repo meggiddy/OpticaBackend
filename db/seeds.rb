@@ -577,4 +577,23 @@ Glass.create([
         has_colors:  true,
         colors: "C01|C05"
     },
+<<<<<<< HEAD
 ])
+=======
+])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 25ceecc (glass endpoints)
