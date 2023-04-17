@@ -6,6 +6,7 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
 module OpticaBackend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -18,5 +19,8 @@ module OpticaBackend
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Serving static files from the public directory
+    config.middleware.insert_before(Rack::Runtime, Rack::Static, urls: ['/public'], root: 'public')
   end
 end

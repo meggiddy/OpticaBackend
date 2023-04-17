@@ -14,7 +14,9 @@ ActiveRecord::Schema.define(version: 2023_04_13_213702) do
 
   create_table "glasses", force: :cascade do |t|
     t.string "brand_name"
-    t.string "file_url"
+    t.string "model_no"
+    t.boolean "has_colors"
+    t.string "colors"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
