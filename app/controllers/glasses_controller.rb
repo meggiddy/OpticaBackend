@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 
 class GlassesController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show, :get_by_brand, :get_by_color, :virtual_search]
+    skip_before_action :authorized, only: [:index, :show, :get_by_brand, :get_by_color, :virtual_search, :get_by_price, :sun_glasses]
 
     def index
         render json: Glass.all()
@@ -12,13 +12,35 @@ class GlassesController < ApplicationController
         render json: Glass.find(params[:id])
     end
 
+    def sun_glasses
+        render json: Glass.where(brand_name: "sunglass")
+    end
+
+    def get_by_price
+        minimum = params[:min]
+        maximum = params[:max]
+
+        glasses = Glass.where("price > ? AND price < ?", minimum, maximum)
+        render json: glasses
+    end
+
     def get_by_brand
-        glasses = Glass.where(brand_name: params[:brand])
+        glasses = []
+        if params[:brand] == "All"
+            glasses = Glass.all
+        else
+            glasses = Glass.where(brand_name: params[:brand])
+        end
         render json: glasses
     end
 
     def get_by_color
-        glasses = Glass.where("colors LIKE ?", "%#{params[:color]}%")
+        glasses = []
+        if params[:color] == "Any"
+            glasses = Glass.all
+        else
+            glasses = Glass.where("colors LIKE ?", "%#{params[:color]}%")
+        end
         render json: glasses
     end
 
@@ -33,7 +55,9 @@ class GlassesController < ApplicationController
 
         sims = JSON.parse(response.body)
 
-        sims = sims.map do |key, value|
+        sims = sims.map do |hash|
+            key = hash.keys[0]
+            value = hash[key]
             key = key.to_s
             key = key.split(" ").length == 2 ? key.split(" ")[0] : key[0...key.index("_")]
             {key => value.to_f}
@@ -65,3 +89,4 @@ class GlassesController < ApplicationController
         render json: glasses
     end
 end
+# 

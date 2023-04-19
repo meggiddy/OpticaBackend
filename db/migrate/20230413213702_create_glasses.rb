@@ -5,7 +5,9 @@ class CreateGlasses < ActiveRecord::Migration[6.1]
       t.string :model_no
       t.boolean :has_colors
       t.string :colors
-     
+      t.decimal :price
+      t.string :frame_size
+      t.string :lens_width
 
       t.timestamps
     end
