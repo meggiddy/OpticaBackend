@@ -17,6 +17,9 @@ ActiveRecord::Schema.define(version: 2023_04_13_213702) do
     t.string "model_no"
     t.boolean "has_colors"
     t.string "colors"
+    t.decimal "price"
+    t.string "frame_size"
+    t.string "lens_width"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

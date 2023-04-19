@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Glass.create([
+glass_data  = [
     {
         brand_name: "guess",
         model_no: "GU2469 TL",
@@ -160,12 +160,6 @@ Glass.create([
     {
         brand_name: "carrera",
         model_no: "CARRERA 4406V 003",
-        has_colors:  false,
-        colors:  ""
-    },
-    {
-        brand_name: "carrera",
-        model_no: "CARRERA 156V 086",
         has_colors:  false,
         colors:  ""
     },
@@ -577,4 +571,56 @@ Glass.create([
         has_colors:  true,
         colors: "C01|C05"
     },
-])
+    {
+        brand_name: "sunglass",
+        model_no: "7902",
+        has_colors:  false,
+        colors: ""
+    },
+    {
+        brand_name: "sunglass",
+        model_no: "7906",
+        has_colors:  false,
+        colors: ""
+    },
+    {
+        brand_name: "sunglass",
+        model_no: "7909",
+        has_colors:  false,
+        colors: ""
+    },
+    {
+        brand_name: "sunglass",
+        model_no: "LE 7003",
+        has_colors:  false,
+        colors: ""
+    },
+    {
+        brand_name: "sunglass",
+        model_no: "SG 817",
+        has_colors:  false,
+        colors: ""
+    },
+    {
+        brand_name: "sunglass",
+        model_no: "SG 817 4500",
+        has_colors:  false,
+        colors: ""
+    },
+]
+
+glass_data = glass_data.map do |glass|
+    glass[:price] = rand(2000..8000)
+    glass[:frame_size] = ["Small", "Medium", "Large"].sample
+    glass[:lens_width] = ["Below 51mm", "51mm - 54mm", "Above 54mm"].sample
+    glass
+end
+
+Glass.create(glass_data)
+
+# Review
+#     title
+#     rating
+#     name
+#     email
+#     content
