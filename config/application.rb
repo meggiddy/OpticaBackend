@@ -19,7 +19,6 @@ module OpticaBackend
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
     # Serving static files from the public directory
     config.middleware.insert_before(Rack::Runtime, Rack::Static, urls: ['/public'], root: 'public')
   end
