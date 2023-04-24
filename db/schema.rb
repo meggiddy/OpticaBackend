@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(version: 2023_04_23_060821) do
     t.decimal "price"
     t.string "frame_size"
     t.string "lens_width"
+    t.decimal "discount"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sales", force: :cascade do |t|
     t.string "glass_id"
+    t.string "color"
     t.string "user_id"
     t.string "mode_of_payment"
     t.datetime "created_at", precision: 6, null: false

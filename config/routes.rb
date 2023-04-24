@@ -21,6 +21,11 @@ Rails.application.routes.draw do
 
   # Sales
   get '/brandsales', to: "sales#by_brand"
+  get '/colorsales', to: "sales#by_color"
+  get '/payments', to: "sales#by_mode_of_payment"
+
+  # Products
+  post '/admins/newproduct', to: "admins#new_product"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

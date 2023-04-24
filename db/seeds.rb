@@ -637,10 +637,12 @@ end
 
 number_of_glasses = Glass.count
 modes_of_payment = ["MPesa", "Paypal", "Pesapal", "Cash", "Skrill"]
+colors = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
 
 650.times do
     Sale.create({
         glass_id: rand(1..number_of_glasses),
+        color: colors.sample,
         user_id: rand(2..11),
         mode_of_payment: modes_of_payment.sample
     })
