@@ -614,9 +614,9 @@ end
 Glass.create(glass_data)
 
 User.create({
-    name: "Ndemo Nancy",
-    email: "nancyndemo@gmail.com",
-    password: "ericks",
+    name: "Joseph Wamiti",
+    email: "josephwamiti@gmail.com",
+    password: "password",
     is_admin: true
 })
 
