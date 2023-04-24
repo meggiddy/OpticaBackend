@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_13_213702) do
+ActiveRecord::Schema.define(version: 2023_04_23_060821) do
 
   create_table "glasses", force: :cascade do |t|
     t.string "brand_name"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2023_04_13_213702) do
     t.decimal "price"
     t.string "frame_size"
     t.string "lens_width"
+    t.decimal "discount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.string "glass_id"
+    t.string "color"
+    t.string "user_id"
+    t.string "mode_of_payment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -28,6 +38,7 @@ ActiveRecord::Schema.define(version: 2023_04_13_213702) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "is_admin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
