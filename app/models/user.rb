@@ -4,3 +4,7 @@ class User < ApplicationRecord
     validates :email, uniqueness: { case_sensitive: false }, presence: true
     validates :password, length: { minimum: 6 }
 end
+
+
+
+ 

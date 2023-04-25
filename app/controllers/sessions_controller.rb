@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
-  skip_before_action :authorized, only: [:create]
+
+    skip_before_action :authorized, only: [:create, :google_user]
     
   def create
      user = User.find_by(email: params[:email])
@@ -16,6 +17,21 @@ class SessionsController < ApplicationController
     render json: @user
   end
 
+  # check and create google user
+  def google_user
+    user = User.find_by(email: params[:email])
+    if user
+      token = encode_token({user_id: user.id})
+      render json: { loggedin: true, user: user, jwt: token, status: 'loggedin' }
+    else
+      # Create a new user with the provided email and name
+      new_user = User.create(email: params[:email], name: params[:name], password: 'swr23r3r3r334gdvrv', password_confirmation: 'swr23r3r3r334gdvrv')
+      token = encode_token({user_id: new_user.id})
+      render json: { loggedin: true, user: new_user, jwt:token, status:'registered' }
+    end
+  end
+
+ 
   # clear JWT token from client's storage
    def destroy
     cookies.delete(:jwt_token)
@@ -25,7 +41,7 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.permit(:email, :password)
+    params.permit(:email, :name)
   end
     
 end
