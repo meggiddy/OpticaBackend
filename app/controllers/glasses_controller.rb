@@ -52,8 +52,8 @@ class GlassesController < ApplicationController
             'image' => params[:image]
         })
         response = http.request(request)
-
         sims = JSON.parse(response.body)
+        pp sims
 
         sims = sims.map do |hash|
             key = hash.keys[0]
@@ -62,31 +62,16 @@ class GlassesController < ApplicationController
             key = key.split(" ").length == 2 ? key.split(" ")[0] : key[0...key.index("_")]
             {key => value.to_f}
         end
-        
         above_threshhold_sims = sims.filter {|file| file[file.keys[0]] > params[:score].to_f }
-        
+        pp above_threshhold_sims
         keys = []
-        
-        glasses = []
-        above_threshhold_sims = above_threshhold_sims.each do |glass|
+     above_threshhold_sims.each do |glass|
             if !keys.include?(glass.keys[0])
                 keys.push(glass.keys[0])
-                gls = Glass.find_by(model_no: glass.keys[0])
-                if gls
-                    hash = {
-                        id: gls.id,
-                        brand_name: gls.brand_name,
-                        model_no: gls.model_no,
-                        has_colors: gls.has_colors,
-                        colors: gls.colors,
-                        similarity_score: glass[glass.keys[0]]
-                    }
-                    glasses.push(hash)
-                end
             end
         end
         
-        render json: glasses
+        render json: Glass.where(model_no: keys)
     end
 end
 # 

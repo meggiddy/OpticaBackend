@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-
+# protect_from_forgery with: :null_session
     before_action :authorized
 
     def encode_token(payload)
@@ -16,6 +16,7 @@ class ApplicationController < ActionController::API
       if auth_header
         token = auth_header.split(' ')[1]
         # header: { 'Authorization': 'Bearer <token>' }
+        puts "token"
         begin
           JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
         rescue JWT::DecodeError

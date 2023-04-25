@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   post '/signup', to: "users#create"
   delete '/logout', to: "sessions#destroy"
-  get '/me', to: "sessions#me"
+  get '/loggedin', to: "sessions#me"
+  get '/google_user', to: 'sessions#google_user'
 
   get '/filter_by_brand/:brand', to: "glasses#get_by_brand"
   get '/filter_by_color/:color', to: "glasses#get_by_color"
