@@ -613,9 +613,49 @@ end
 
 Glass.create(glass_data)
 
+User.create({
+    name: "Joseph Wamiti",
+    email: "josephwamiti@gmail.com",
+    password: "password",
+    is_admin: true
+})
+
+10.times do
+    name = Faker::Name.name_with_middle
+    User.create({
+        name: name,
+        email: name.split(" ").map {|nm| nm.downcase}.join("")+"@"+Faker::Internet.domain_name,
+        password: "password",
+        is_admin: 0,
+    })
+end
+
+number_of_glasses = Glass.count
+modes_of_payment = ["MPesa", "Paypal", "Pesapal", "Cash", "Skrill"]
+colors = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
+
+650.times do
+    Sale.create({
+        glass_id: rand(1..number_of_glasses),
+        color: colors.sample,
+        user_id: rand(2..11),
+        mode_of_payment: modes_of_payment.sample
+    })
+end
+
 # Review
 #     title
 #     rating
 #     name
 #     email
-#     content
+#     conten
+
+Sale.all.map {|sale| { brand: sale.glass.brand_name, selling_price: sale.glass.price } }.reduce({}) do |acc, curr|
+    if acc[curr.keys[0]]
+        acc[curr.keys[0]] = acc[curr.keys[0]] + curr[:selling_price]
+    else
+        acc[curr.keys[0]] = curr[:selling_price]
+    end
+    acc
+end
+    

@@ -8,6 +8,7 @@ class CreateGlasses < ActiveRecord::Migration[6.1]
       t.decimal :price
       t.string :frame_size
       t.string :lens_width
+      t.decimal :discount
 
       t.timestamps
     end

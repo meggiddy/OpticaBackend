@@ -1,29 +1,22 @@
 require 'net/http'
 require 'json'
-
 class GlassesController < ApplicationController
     skip_before_action :authorized, only: [:index, :show, :get_by_brand, :get_by_color, :virtual_search, :get_by_price, :sun_glasses]
-
     def index
-        render json: Glass.all()
+        render json: Glass.all.shuffle
     end
-
     def show
         render json: Glass.find(params[:id])
     end
-
     def sun_glasses
         render json: Glass.where(brand_name: "sunglass")
     end
-
     def get_by_price
         minimum = params[:min]
         maximum = params[:max]
-
         glasses = Glass.where("price > ? AND price < ?", minimum, maximum)
         render json: glasses
     end
-
     def get_by_brand
         glasses = []
         if params[:brand] == "All"
@@ -33,7 +26,6 @@ class GlassesController < ApplicationController
         end
         render json: glasses
     end
-
     def get_by_color
         glasses = []
         if params[:color] == "Any"
@@ -43,7 +35,6 @@ class GlassesController < ApplicationController
         end
         render json: glasses
     end
-
     def virtual_search
         uri = URI('http://localhost:8000/imagefilter/upload')
         http = Net::HTTP.new(uri.host, uri.port)
@@ -66,12 +57,13 @@ class GlassesController < ApplicationController
         pp above_threshhold_sims
         keys = []
      above_threshhold_sims.each do |glass|
+        keys = []
+        above_threshhold_sims.each do |gl
             if !keys.include?(glass.keys[0])
                 keys.push(glass.keys[0])
             end
         end
-        
+
         render json: Glass.where(model_no: keys)
     end
 end
-# 

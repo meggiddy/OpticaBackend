@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::API
-# protect_from_forgery with: :null_session
+
     before_action :authorized
+    wrap_parameters format: []
+    rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
+    rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity_response
 
     def encode_token(payload)
       # should store secret in env variable
@@ -44,4 +47,13 @@ class ApplicationController < ActionController::API
       render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
     end
 
+    private
+
+    def response_not_found
+        render json: {error: "#{controller_name.classify} not found"}, status: :not_found
+    end
+
+    def unprocessable_entity_response(invalid)
+        render json: invalid.record.errors, status: :unprocessable_entity
+    end
 end
