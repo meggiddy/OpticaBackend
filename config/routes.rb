@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post '/signup', to: "users#create"
   delete '/logout', to: "sessions#destroy"
   get '/loggedin', to: "sessions#me"
+  get '/google_user', to: 'sessions#google_user'
 
   post '/admin/login', to: "adminsessions#create"
   get '/admin/me', to: "adminsessions#current_admin"
