@@ -606,6 +606,7 @@ glass_data  = [
 
 glass_data = glass_data.map do |glass|
     glass[:price] = rand(2000..8000)
+    glass[:discount] = 0
     glass[:frame_size] = ["Small", "Medium", "Large"].sample
     glass[:lens_width] = ["Below 51mm", "51mm - 54mm", "Above 54mm"].sample
     glass
@@ -613,12 +614,44 @@ end
 
 Glass.create(glass_data)
 
-User.create({
-    name: "Joseph Wamiti",
-    email: "josephwamiti@gmail.com",
-    password: "password",
-    is_admin: true
-})
+User.create([
+    {
+        name: "Erick Obuya",
+        email: "obuyaerick@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Francie Orwa",
+        email: "francieorwa@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Linet Oliech",
+        email: "linetoliech@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Maggie Muriithi",
+        email: "maggiemuriithi@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Joseph Wamiti",
+        email: "wamiti8711@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Guantai Paul",
+        email: "paulguantai@gmail.com",
+        password: "password",
+        is_admin: true
+    }
+])
 
 10.times do
     name = Faker::Name.name_with_middle
@@ -634,21 +667,15 @@ number_of_glasses = Glass.count
 modes_of_payment = ["MPesa", "Paypal", "Pesapal", "Cash", "Skrill"]
 colors = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
 
-650.times do
+1000.times do
     Sale.create({
         glass_id: rand(1..number_of_glasses),
         color: colors.sample,
         user_id: rand(2..11),
-        mode_of_payment: modes_of_payment.sample
+        mode_of_payment: modes_of_payment.sample,
+        date: Faker::Date.between(from: "2022-01-01", to: "2023-05-01")
     })
 end
-
-# Review
-#     title
-#     rating
-#     name
-#     email
-#     conten
 
 Sale.all.map {|sale| { brand: sale.glass.brand_name, selling_price: sale.glass.price } }.reduce({}) do |acc, curr|
     if acc[curr.keys[0]]
