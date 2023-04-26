@@ -3,12 +3,57 @@ require 'base64'
 class AdminsController < ActionController::API
     wrap_parameters format: []
     include ActionController::Cookies
+    rescue_from ActiveRecord::RecordNotFound, with: :response_not_found
+    rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity_response
 
     before_action :authenticate_staff
 
-    def new_product
+    def users
+        render json: User.all
+    end
 
-        glass = Glass.create({
+    def get_user
+        user = User.find(params[:id])
+        render json: user
+    end
+
+    def update_user
+    end
+
+    def update_product
+        glass = Glass.find(params[:id])
+        
+        glass.colors = glass.colors.split("|").concat(params[:new_images].split("|"))
+        glass_params = {
+            price: params[:price],
+            discount: params[:discount],
+            colors: params[:new_images]
+        }
+
+        update_params = {**glass_params}
+        update_params[:colors] = params[:colors]
+        
+        if glass.update!(update_params)
+            directory_path = Rails.root.join('public', 'glass', glass.brand_name, glass.model_no)
+            Dir.mkdir(directory_path) unless File.directory?(directory_path)
+
+            if glass_params[:colors].length > 0
+                colors = glass_params[:colors].split "|"
+                image_sets = params[:image_sets]
+                colors.each do |color|
+                    new_path = directory_path+color
+                    Dir.mkdir(new_path) unless File.directory?(new_path)
+
+                    save_image(new_path, image_sets[color.slice(1).to_s])
+                end
+            end
+        end
+
+        render json: { message: "Product updated succesfully" }, status: :created
+    end
+
+    def new_product
+        glass = Glass.new({
             model_no: params[:model_no],
             price: params[:price].to_f,
             brand_name: params[:brand],
@@ -18,16 +63,18 @@ class AdminsController < ActionController::API
             lens_width: params[:lens_width]
         })
 
-        directory_path = Rails.root.join('public', 'glass', params[:brand], params[:model_no])
-        Dir.mkdir(directory_path) unless File.directory?(directory_path)
+        if glass.save!
+            directory_path = Rails.root.join('public', 'glass', params[:brand], params[:model_no])
+            Dir.mkdir(directory_path) unless File.directory?(directory_path)
 
-        colors = params[:colors].split "|"
-        image_sets = params[:image_sets]
-        colors.each do |color|
-            new_path = directory_path+color
-            Dir.mkdir(new_path) unless File.directory?(new_path)
+            colors = params[:colors].split "|"
+            image_sets = params[:image_sets]
+            colors.each do |color|
+                new_path = directory_path+color
+                Dir.mkdir(new_path) unless File.directory?(new_path)
 
-            save_image(new_path, image_sets[color.to_s])
+                save_image(new_path, image_sets[color.to_s])
+            end
         end
 
         render json: { message: "Product created succesfully" }, status: :created
@@ -67,5 +114,13 @@ class AdminsController < ActionController::API
         unless @admin
             head :unauthorized
         end
+    end
+
+    def response_not_found
+        render json: {error: "#{controller_name.classify} not found"}, status: :not_found
+    end
+
+    def unprocessable_entity_response(invalid)
+        render json: invalid.record.errors.full_messages, status: :unprocessable_entity
     end
 end

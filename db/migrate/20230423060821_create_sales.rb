@@ -5,6 +5,7 @@ class CreateSales < ActiveRecord::Migration[6.1]
       t.string :color
       t.string :user_id
       t.string :mode_of_payment
+      t.date :date
 
       t.timestamps
     end

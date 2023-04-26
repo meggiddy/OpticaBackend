@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  #resources :sales
+  resources :groups
+  resources :roles
+  resources :sales
   resources :glasses
   resources :users
+
+  # Users Permissions and Roles
+  get '/admin/users', to: "admins#users"
+  get '/getuser/:id', to: "admins#get_user"
 
   post '/login', to: "sessions#create"
   post '/signup', to: "users#create"
@@ -26,6 +32,7 @@ Rails.application.routes.draw do
 
   # Products
   post '/admins/newproduct', to: "admins#new_product"
+  patch '/admins/updateproduct/:id', to: "admins#update_product"
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

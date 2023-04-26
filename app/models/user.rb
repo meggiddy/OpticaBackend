@@ -3,4 +3,6 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :email, uniqueness: { case_sensitive: false }, presence: true
     validates :password, length: { minimum: 6 }
+
+    has_many :roles
 end
