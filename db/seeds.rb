@@ -619,12 +619,44 @@ end
 
 Glass.create(glass_data)
 
-User.create({
-    name: "Erick Obuya",
-    email: "obuyaerick@gmail.com",
-    password: "password",
-    is_admin: true
-})
+User.create([
+    {
+        name: "Erick Obuya",
+        email: "obuyaerick@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Francie Orwa",
+        email: "francieorwa@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Linet Oliech",
+        email: "linetoliech@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Maggie Muriithi",
+        email: "maggiemuriithi@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Joseph Wamiti",
+        email: "wamiti8711@gmail.com",
+        password: "password",
+        is_admin: true
+    },
+    {
+        name: "Guantai Paul",
+        email: "paulguantai@gmail.com",
+        password: "password",
+        is_admin: true
+    }
+])
 
 10.times do
     name = Faker::Name.name_with_middle
