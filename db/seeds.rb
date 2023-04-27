@@ -601,7 +601,7 @@ glass_data  = [
         model_no: "SG 817 4500",
         has_colors:  false,
         colors: ""
-    },
+    }
 ]
 
 glass_data = glass_data.map do |glass|
@@ -612,8 +612,12 @@ glass_data = glass_data.map do |glass|
     glass
 end
 
-Glass.create(glass_data)
+puts "Seeding glasses"
+glass_data.each do |gls_hash|
+    Glass.create!(gls_hash)
+end
 
+puts "Seeding admins"
 User.create([
     {
         name: "Erick Obuya",
@@ -653,6 +657,7 @@ User.create([
     }
 ])
 
+puts "Seeding users"
 10.times do
     name = Faker::Name.name_with_middle
     User.create({
@@ -667,6 +672,7 @@ number_of_glasses = Glass.count
 modes_of_payment = ["MPesa", "Paypal", "Pesapal", "Cash", "Skrill"]
 colors = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
 
+puts "Seeding sales"
 1000.times do
     Sale.create({
         glass_id: rand(1..number_of_glasses),
@@ -677,12 +683,55 @@ colors = ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"]
     })
 end
 
-Sale.all.map {|sale| { brand: sale.glass.brand_name, selling_price: sale.glass.price } }.reduce({}) do |acc, curr|
-    if acc[curr.keys[0]]
-        acc[curr.keys[0]] = acc[curr.keys[0]] + curr[:selling_price]
-    else
-        acc[curr.keys[0]] = curr[:selling_price]
-    end
-    acc
-end
-    
+puts "Seeding Roles"
+Role.create([
+    {
+        name: "RootUser",
+        description: "All privileges"
+    },
+    {
+        name: "IdentityAccessManagement",
+        description: "Creates and manages Users, Groups, Roles and Permissions"
+    },
+    {
+        name: "UpdateUser",
+        description: "Editing, updating and deleting users"
+    },
+    {
+        name: "CreateUser",
+        description: "Creating new users"
+    },
+    {
+        name: "UpdateUser",
+        description: "Editing, updating and deleting users"
+    },
+    {
+        name: "CreateProduct",
+        description: "Creating new products"
+    },
+    {
+        name: "UpdateProduct",
+        description: "Editing, updating and deleting products"
+    },
+])
+
+puts "Seeding Groups"
+Group.create([
+    { name: "Superusers" },
+    { name: "Branch Managers" },
+    { name: "Medical Practitioners" },
+    { name: "Auditors" },
+    { name: "Secretaries" },
+    { name: "Researchers and developers" }
+])
+
+
+# pp Sale.all.map {|sale| { brand: sale.glass.brand_name, selling_price: sale.glass.price } }.reduce({}) do |acc, curr|
+#     if acc[curr.keys[0]]
+#         acc[curr.keys[0]] = acc[curr.keys[0]] + curr[:selling_price]
+#     else
+#         acc[curr.keys[0]] = curr[:selling_price]
+#     end
+#     acc
+# end
+puts "Done seeding"
