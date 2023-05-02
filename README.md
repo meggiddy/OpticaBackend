@@ -12,7 +12,7 @@
 Optica has a curated collection of eyewear available in many styles and colors. However, they face a challenge in viewing all available frames/sunglasses based on the design selected. This challenge reduces efficiency and wastes time for both our customers and staff
 ******
 ## Database Diagram
-
+![optica-db](https://user-images.githubusercontent.com/91910681/235595399-9d949bd4-5a4d-4508-acd5-e2cedeea1f69.png)
 ******
 
 ## SetUp Instruction
