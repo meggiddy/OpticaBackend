@@ -59,11 +59,12 @@ Optica has a curated collection of eyewear available in many styles and colors. 
 1. wamiti8711@gmail.com
 2. oliechlin@gmail.com
 3. maggie@koelling-home.de
-4. 
+4. francieorwa@gmail.com
+5. jpguantai@gmail.com
 *****
 ## [License](LICENSE)
 MIT License
-Copyright (c) 2023 Joseph Wamiti
+Copyright (c) 2023 Joseph, Linet, Francisca, Maggie, Eric, Guantai
 
 
 
