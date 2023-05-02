@@ -11,6 +11,9 @@
 ## Project Description
 Optica has a curated collection of eyewear available in many styles and colors. However, they face a challenge in viewing all available frames/sunglasses based on the design selected. This challenge reduces efficiency and wastes time for both our customers and staff
 ******
+## Database Diagram
+
+******
 
 ## SetUp Instruction
 ### Requirements
