@@ -56,7 +56,10 @@ Optica has a curated collection of eyewear available in many styles and colors. 
 *****
 ## Contact Information
 * Email : 
-* 1. wamiti8711@gmail.com
+1. wamiti8711@gmail.com
+2. oliechlin@gmail.com
+3. maggie@koelling-home.de
+4. 
 *****
 ## [License](LICENSE)
 MIT License
